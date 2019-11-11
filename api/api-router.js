@@ -19,17 +19,10 @@ router.post('/hash', (req, res) => {
   // return it to the user in an object that looks like:
   // { password: 'original password`, hash: `hashed password`}
 
-  const credentials = req.body;
-  const hash = bcrypt.hashSync(credentials.password, 14);
-  credentials.password = hash;
+  const password = req.body.password;
+  const hash = bcrypt.hashSync(password, 14);
 
-  Users.add(user)
-    .then(saved => {
-      res.status(201).json(saved)
-    })
-    .catch(error => {
-      res.status(500).json(error)
-    })
+  res.status(200).json({ password, hash })
 })
 
 module.exports = router;
